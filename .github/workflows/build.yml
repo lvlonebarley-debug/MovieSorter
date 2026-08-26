@@ -9,15 +9,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
       - name: Unzip project
         run: unzip MovieSorter.zip
-      - name: Find and build
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: Build APK
         run: |
-          find . -name "gradlew" | head -5
-          GRADLEW=$(find . -name "gradlew" | head -1)
-          chmod +x $GRADLEW
-          cd $(dirname $GRADLEW)
-          ./gradlew assembleDebug
+          cd MovieSorter
+          gradle assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: MovieSorter-APK
