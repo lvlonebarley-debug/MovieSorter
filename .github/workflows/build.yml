@@ -16,7 +16,8 @@ jobs:
       - name: Build APK
         run: |
           cd MovieSorter
-          gradle wrapper --gradle-version 8.4
+          # AGP 8.6.0 requires Gradle 8.7+; generate a compatible wrapper
+          gradle wrapper --gradle-version 8.9
           chmod +x gradlew
           ./gradlew assembleDebug --warning-mode none
       - uses: actions/upload-artifact@v4
